@@ -1,5 +1,5 @@
 # HeroSystemSheet
-Hero System character sheet for Roll20
+Hero System 6th Edition character sheet for Roll20
 
 This character sheet was designed for use in heroic-leve Hero System games such as Fantasy Hero or Star Hero. Characters in these games tend to have many skills, few powers, and employ weapons that generally do killing damage. This sheet attempts to handle all of the bookkeeping math for characteristics, skills, powers, and complications. No skill names, power names, power desciptions, advantages, or limitations are included, except for the six skill enhancers, which are required for the internal math.
 
