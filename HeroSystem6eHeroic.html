@@ -1807,7 +1807,9 @@
 					<div class="custom-select">
 						<select name="attr_powerReducedEND01">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -1862,7 +1864,9 @@
 					<div class="custom-select">
 						<select name="attr_powerReducedEND02">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -1917,7 +1921,9 @@
 					<div class="custom-select">
 						<select name="attr_powerReducedEND03">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -1972,7 +1978,9 @@
 					<div class="custom-select">
 						<select name="attr_powerReducedEND04">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -2027,7 +2035,9 @@
 					<div class="custom-select">
 						<select name="attr_powerReducedEND05">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -2085,7 +2095,9 @@
 					<div class="custom-select-alternate">
 						<select name="attr_powerReducedEND06">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -2140,7 +2152,9 @@
 					<div class="custom-select-alternate">
 						<select name="attr_powerReducedEND07">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -2195,7 +2209,9 @@
 					<div class="custom-select-alternate">
 						<select name="attr_powerReducedEND08">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -2250,7 +2266,9 @@
 					<div class="custom-select-alternate">
 						<select name="attr_powerReducedEND09">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -2305,7 +2323,9 @@
 					<div class="custom-select-alternate">
 						<select name="attr_powerReducedEND10">
 							<option value="noEND">None</option>
+							<option value="zeroENDAF">Zero (AF)</option>
 							<option value="zeroEND">Zero</option>
+							<option value="reducedENDAF">Reduced (AF)</option>
 							<option value="reducedEND">Reduced</option>
 							<option value="standardEND" selected>Standard</option>
 							<option value="increasedENDx2">Increase x2</option>
@@ -4073,24 +4093,33 @@
 									powerEND=1;
 								};
 								break;
+			case 'reducedENDAF': powerEND=heroRoundLow(powerActiveCost/20);
+								if (powerEND<1) {
+									powerEND=1;
+								};
+								break;
 			default: powerEND=0;
 		}
 	
 		return powerEND;
 	}
 	
-	function calculateModifiedCost(powerActiveCost,powerReducedEND) {
-		var powerModifiedCost=0;
+	function calculateActiveCost(powerBaseCost,powerAdvantages,powerReducedEND) {
+		var powerActiveCost=0;
 		
 		switch (powerReducedEND) {
-			case 'reducedEND': powerModifiedCost=powerActiveCost*1.25;
+			case 'reducedENDAF': powerActiveCost=powerBaseCost*(powerAdvantages+1.5);
 								break;
-			case 'zeroEND': powerModifiedCost=powerActiveCost*1.5;
+			case 'zeroENDAF': powerActiveCost=powerBaseCost*(powerAdvantages+2);
 								break;
-			default: powerModifiedCost=powerActiveCost;
+			case 'reducedEND': powerActiveCost=powerBaseCost*(powerAdvantages+1.25);
+								break;
+			case 'zeroEND': powerActiveCost=powerBaseCost*(powerAdvantages+1.5);
+								break;
+			default: powerActiveCost=powerBaseCost*(1+powerAdvantages);
 		}
 		
-		return powerModifiedCost;
+		return powerActiveCost;
 	}
 	
 	function increasedENDlimitation(settingEND) {
@@ -4122,7 +4151,7 @@
 		getAttrs(["powerType01","powerBaseCost01","powerAdvantages01","powerReducedEND01","powerLimitations01"], function(values) {
 			
 			let powerType = values.powerType01;
-			 const powerBaseCost = parseInt(values.powerBaseCost01)||0;
+			const powerBaseCost = parseInt(values.powerBaseCost01)||0;
 			const powerAdvantages = parseFloat(values.powerAdvantages01)||0;
 			const powerReducedEND = values.powerReducedEND01;
 			let powerActiveCost=0;
@@ -4133,26 +4162,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations01)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4206,26 +4235,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations02)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4279,26 +4308,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations03)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4352,26 +4381,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations04)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4425,26 +4454,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations05)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4498,26 +4527,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations06)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4571,26 +4600,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations07)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4644,26 +4673,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations08)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4717,26 +4746,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations09)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
@@ -4790,26 +4819,26 @@
 			var increasedENDLimitation=increasedENDlimitation(powerReducedEND);
 			var powerLimitations = (parseFloat(values.powerLimitations10)||0)+increasedENDLimitation;
 			
-			powerActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerPreReducedEndActiveCost=powerBaseCost * (1+powerAdvantages);
+			powerEND=calculatePowerEND(powerPreReducedEndActiveCost, powerReducedEND);
+			powerActiveCost=calculateActiveCost(powerBaseCost, powerAdvantages, powerReducedEND);
 			powerActiveCost=heroRoundLow(powerActiveCost);
-			powerEND=calculatePowerEND(powerActiveCost, powerReducedEND);
-			powerModifiedCost=calculateModifiedCost(powerActiveCost, powerReducedEND);
 			
 			if (powerBaseCost != 0) {
 				switch (powerType) {
-					case 'variableSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/5;
+					case 'variableSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/5;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					case 'fixedSlot': 	powerRealCost=powerModifiedCost/(1+powerLimitations)/10;
+					case 'fixedSlot': 	powerRealCost=powerActiveCost/(1+powerLimitations)/10;
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
 									};
 									break;
-					default: powerRealCost=powerModifiedCost/(1+powerLimitations);
+					default: powerRealCost=powerActiveCost/(1+powerLimitations);
 									powerRealCost=heroRoundLow(powerRealCost);
 									if (powerRealCost<1) {
 										powerRealCost=1;
