@@ -1,7 +1,7 @@
 # HeroSystem6eHeroic
 Hero System 6th Edition character sheet for Roll20
 
-This character sheet was designed for use in heroic-level Hero System games such as Fantasy Hero or Star Hero. Characters in these games tend to have many skills, few powers, and employ weapons that generally do killing damage. This sheet attempts to handle all of the bookkeeping math for characteristics, skills, powers, and complications. However, no skill names, power names, power desciptions, advantages, or limitations are included, except for the six skill enhancers, which are required for the internal math. Please refer to official Hero System rules publications or the official helper software Hero Designer for this information (https://www.herogames.com).
+This character sheet was designed for use in heroic-level Hero System games such as Fantasy Hero or Star Hero. Characters in these games tend to have many skills, few powers, and employ weapons that generally do killing damage. This sheet attempts to handle all of the bookkeeping math for characteristics, skills, powers, and complications. However, no skill names, power names, power desciptions, advantages, or limitations are included, except for the six skill enhancers and Endurance-related choices, which are required for the internal math. Please refer to official Hero System rules publications or the official helper software Hero Designer for this information (https://www.herogames.com).
 
 The number of skills (30 general plus 7 combat and 10 languages) and powers (10) is hard-coded to handle the background math and for aesthetics, but should be sufficient for general use.
 
