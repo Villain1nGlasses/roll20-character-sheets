@@ -5,6 +5,6 @@ This character sheet was designed for use in heroic-leve Hero System games such 
 
 The number of skills (30 general plus 7 combat and 10 languages) and powers (10) is hard-coded to handle the background math and for aesthetics, but should be sufficient for general use.
 
-The first page includes a portrait section, designed as a slideshow, that includes the basic attacks and maneuvers and a place for images. The default images are public domain, but these may be replaced with links to external images. If Roll20 implements a way to display the avatar of a character, this is where it will be used.
+The first page includes a portrait section, designed as a slideshow, that includes the basic attacks and maneuvers and a place for images. The default images are public domain, but these may be replaced with links to external images by modifying the HTML code. If Roll20 implements a way to display the avatar of a character, this is where it will be used.
 
 The equipment section, or gear section, handles attack and killing damage rolls. Normal damage will have to be handled with standard inline Roll20 rolls where STUN and BODY damage can be added by hand. Alternatively, one can use one of the Hero damage API scripts such as Hero Roller https://wiki.roll20.net/Script:HeroRoller.
